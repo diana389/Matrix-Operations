@@ -5,7 +5,7 @@ Tema 3
 
 Organizare
 
-    * În cadrul acestei teme am implementat o expresie data de forma:
+    * În cadrul acestei teme am implementat o expresie data, de forma:
         - C = (At × B + B × A) × Bt, unde:
             - A si B sunt matrice pătratice de dimensiune N x N, cu elemente 
             de tip double
@@ -32,9 +32,9 @@ Organizare
         BLAS:
             - Am folosit funcțiile din biblioteca BLAS Atlas pentru a realiza 
             operațiile de înmulțire și adunare a matricelor.
-            - Am folosit funcțiile cblas_dgemm și cblas_dgemv pentru înmulțirea 
-            matricelor și cblas_daxpy pentru adunarea matricelor, pentru a utiliza 
-            informația despre matricea superior triunghiulară A.
+            - Am folosit funcțiile cblas_dgemm și cblas_dtrmm (pentru a utiliza 
+            informația despre matricea superior triunghiulară A) pentru înmulțirea 
+            matricelor și cblas_daxpy pentru adunarea matricelor.
         
         NEOPT:
             - Am implementat operațiile de înmulțire și adunare a matricelor 
