@@ -1,0 +1,3 @@
+/var/lib/slurmd/job486861/slurm_script: line 3: ./tema3_neopt: No such file or directory
+/var/lib/slurmd/job486861/slurm_script: line 4: ./tema3_opt_m: No such file or directory
+/var/lib/slurmd/job486861/slurm_script: line 5: ./tema3_blas: No such file or directory

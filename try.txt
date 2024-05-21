@@ -1,0 +1,1 @@
+Run=src/tema3_neopt: N=400: Time=46.695160

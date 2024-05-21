@@ -1,0 +1,3 @@
+Run=src/tema3_blas: N=400: Time=2.369188
+Run=src/tema3_neopt: N=400: Time=10.616867
+Run=src/tema3_opt_m: N=400: Time=4.102920
