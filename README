@@ -5,30 +5,63 @@ Tema 3
 
 Organizare
 
-    * În cadrul acestei teme am implementat un algoritm de consens distribuit 
-    Proof of Work pe blockchain folosind programare pe GPU în CUDA.
-    * Utilitatea temei constă in:
-        - Înțelegerea modului de funcționare a algoritmului Proof of Work.
-        - Implementarea unui algoritm de consens distribuit pe blockchain.
-        - Implementarea unui algoritm de verificare a unui bloc pe blockchain.
-        - Aprofundarea cunoștințelor de programare pe GPU în CUDA.
-        - Înțelegerea modului de funcționare a unui blockchain.
+    * În cadrul acestei teme am implementat o expresie data de forma:
+        - C = (At × B + B × A) × Bt, unde:
+            - A si B sunt matrice pătratice de dimensiune N x N, cu elemente 
+            de tip double
+            - A este o matrice superior triunghiulară
+            - At este transpusa lui A și Bt este transpusa lui B
+            - × este operația de înmulțire
+            - + este operația de adunare
+        în 3 moduri:
+            - blas - o variantă care folosește una sau mai multe funcții din BLAS 
+            Atlas pentru realizarea operațiilor de înmulțire și adunare.
+            - neopt - o variantă “de mână” fără îmbunătățiri.
+            - opt_m - o variantă îmbunătățită a versiunii neopt. Îmbunătățirea are 
+            în vedere exclusiv modificarea codului pentru a obține performanțe mai 
+            bune.
+
+    * Utilitatea temei constă în:
+        - Înțelegerea și implementarea unor operații de bază pe matrice.
+        - Îmbunătățirea performanței unui astfel de program.
+        - Învățarea utilizării unor funcții din biblioteca BLAS Atlas.
+        - Învățarea utilizării unor tehnici de optimizare a înmulțirii și adunării 
+        matricelor.
 
     * Abordare:
-        - Am urmarit rezolvarea prezentată în programul secvențial, modificarea
-        constând în paralelizarea algoritmului de găsire a unui nonce valid.
-        - Am alocat memorie pe device pentru datele de intrare și de ieșire.
-        - Am copiat datele de intrare de pe host pe device.
-        - Am cronometrat timpul de execuție al kernelului.
-        - Am implementat funcția de căutare a unui nonce valid pe device ("findNonce").
-        - Am copiat datele de ieșire de pe device pe host și am afișat rezultatul.
+        BLAS:
+            - Am folosit funcțiile din biblioteca BLAS Atlas pentru a realiza 
+            operațiile de înmulțire și adunare a matricelor.
+            - Am folosit funcțiile cblas_dgemm și cblas_dgemv pentru înmulțirea 
+            matricelor și cblas_daxpy pentru adunarea matricelor, pentru a utiliza 
+            informația despre matricea superior triunghiulară A.
+        
+        NEOPT:
+            - Am implementat operațiile de înmulțire și adunare a matricelor 
+            folosind soluții clasice.
+            - At: Avand în vedere ca A este o matrice superior triunghiulară, 
+            pentru a realiza transpusa acesteia am completat doar partea de sub 
+            diagonala principala, rezultând o matrice inferior triunghiulară.
+            - At x B: Am realizat înmulțirea matricelor At si B folosind 3 for-uri 
+            imbricate, ultimul mergand doar pana la i, unde i este linia curenta, 
+            deoarece At este o matrice inferior triunghiulară.
+            - B x A: Am realizat înmulțirea matricelor B si A folosind 3 for-uri 
+            imbricate, ultimul mergand doar pana la max(i, j), unde i si j sunt 
+            liniile si coloanele curente, deoarece A este o matrice superior 
+            triunghiulară.
+            - At x B + B x A: Am realizat adunarea rezultatelor At x B si B x A 
+            folosind 2 for-uri imbricate.
+            - Bt: Am realizat transpusa matricei B folosind 2 for-uri imbricate.
+            - (At x B + B x A) x Bt: Am realizat înmulțirea rezultatului adunării 
+            cu Bt folosind 3 for-uri imbricate.
 
-        - findNonce:
-            - Am folosit o variabilă "nonce_found" pentru a verifica dacă s-a găsit 
-            un nonce valid, pentru a evita continuarea căutării în mod inutil.
-            - Am alipit nonce-ul la bloc și am calculat hash-ul rezultat.
-            - Am verificat dacă hash-ul este mai mic decât dificultatea, caz în care
-            am setat "nonce_found" pe 1 și am salvat nonce-ul și hash-ul rezultat.
+        OPT_M:
+            - Rezolvarea se face similar cu cea de la NEOPT, cu mici modificări 
+            pentru a obține performanțe mai bune.
+            - Am detectat constantele din bucla, având grijă să fie reținute în 
+            regiștrii, permițând astfel o utilizare optimă a resursei.
+            - În plus, am accesat elementele matricelor în mod direct, prin pointeri, 
+            pentru a evita accesările multiple în memorie.
 
 
 Implementare
@@ -44,4 +77,4 @@ Resurse utilizate
 
 Git
 
-    * https://github.com/diana389/CUDA-Proof-of-Work
+    * https://github.com/diana389/Matrix-Operations
