@@ -63,6 +63,14 @@ Organizare
             - În plus, am accesat elementele matricelor în mod direct, prin pointeri, 
             pentru a evita accesările multiple în memorie.
 
+        * Interpretarea rezultatelor:
+            - opt_m are un număr de instruction references (I refs) si de data references 
+            (D refs) mult mai mic decât neopt, datorită optimizărilor făcute, ambele
+            fiind depasite de blas.
+            - Se poate vedea aceasta diferență și în graficul realizat pe baza timpilor 
+            de execuție ai celor 3 variante (varianta neoptimizată este cea mai lentă, 
+            detasat - cu cât crește dimensiunea matricelor, cu atât diferența de timp 
+            este mai mare).
 
 Implementare
 
@@ -73,8 +81,3 @@ Resurse utilizate
 
     * https://ocw.cs.pub.ro/courses/asc/laboratoare/09
     * https://www.netlib.org/blas/
-
-
-Git
-
-    * https://github.com/diana389/Matrix-Operations
